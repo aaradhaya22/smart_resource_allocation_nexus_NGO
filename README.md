@@ -171,7 +171,7 @@ npm run dev
 - Machine Learning-based prioritization
 - Notification system
 - Advanced analytics dashboard
-
+- Better support in chatbot 
 ---
 
 ## 🤝 Contribution
