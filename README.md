@@ -131,7 +131,7 @@ Priority = Category Weight + Affected People Score
 - Next.js API Routes
 
 ### Database
-- JSON-based local database (for prototyping)
+- JSON-based local database (for fast prototyping)
 
 ---
 
