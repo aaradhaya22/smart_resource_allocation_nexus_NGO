@@ -3,7 +3,6 @@
 :root {
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
-  --card-bg: #f9fafb;
   --bg-glass: rgba(0, 0, 0, 0.05);
   --border-glass: rgba(0, 0, 0, 0.1);
   --text-primary: #0f172a;
@@ -17,16 +16,17 @@
   --accent-purple: #8b5cf6;
   
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --card-bg: #f9fafb;
 }
 
 .dark {
   --bg-primary: #0b101e;
   --bg-secondary: #131b2f;
-  --card-bg: #1e293b;
   --bg-glass: rgba(255, 255, 255, 0.03);
   --border-glass: rgba(255, 255, 255, 0.08);
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
+  --card-bg: #1e293b;
 }
 
 * { box-sizing: border-box; padding: 0; margin: 0; }
@@ -153,15 +153,26 @@ body { background-color: var(--bg-primary); color: var(--text-primary); font-fam
 .bg-green-50 { background-color: rgba(16, 185, 129, 0.1) !important; }
 .bg-red-50 { background-color: rgba(239, 68, 68, 0.1) !important; }
 
-/* Custom Table Styles */
+/* Table Styles */
 table {
   border-collapse: separate;
   border-spacing: 0 12px;
+  width: 100%;
 }
 
 tr {
   background: var(--card-bg);
   border-radius: 12px;
+  transition: 0.2s ease;
+}
+
+tr:hover {
+  transform: scale(1.01);
+}
+
+td, th {
+  padding: 14px 18px;
+  text-align: left;
 }
 
 tr td:first-child {
@@ -172,14 +183,4 @@ tr td:first-child {
 tr td:last-child {
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
-}
-
-td, th {
-  padding: 14px 18px;
-  text-align: left;
-}
-
-tr:hover {
-  transform: scale(1.01);
-  transition: 0.2s ease;
 }

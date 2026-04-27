@@ -76,7 +76,7 @@ export default function AssignTaskPage({ params }) {
   if (!task) return <div>Task not found.</div>;
 
   return (
-    <div className="animate-fade-in" style={{maxWidth: '900px', margin: '0 auto'}}>
+    <div className="animate-fade-in bg-white dark:bg-gray-900 text-black dark:text-white" style={{maxWidth: '900px', margin: '0 auto'}}>
       <header className="page-header" style={{marginBottom: '24px'}}>
         <div>
           <Link href="/tasks" style={{color: 'var(--text-secondary)', textDecoration: 'none', display: 'inline-block', marginBottom: '8px'}}>← Back to Tasks</Link>
@@ -103,7 +103,7 @@ export default function AssignTaskPage({ params }) {
           <button 
             onClick={handleAssignSelected} 
             disabled={assigning !== null}
-            className="btn btn-primary"
+            className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
             style={{padding: '8px 16px', fontSize: '14px'}}
           >
             {assigning === "multi" ? 'Deploying Selected...' : 'Assign Selected'}
@@ -123,7 +123,7 @@ export default function AssignTaskPage({ params }) {
         </div>
       ) : (
         <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
-          {matches.map((vol, idx) => (
+          {(matches || []).map((vol, idx) => (
             <div key={vol.id} className={`glass-panel animate-fade-in delay-${(idx % 3) + 1}`} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
               
               <div style={{display: 'flex', gap: '24px', alignItems: 'center'}}>
@@ -153,7 +153,7 @@ export default function AssignTaskPage({ params }) {
                   
                   {vol.matchReasons && vol.matchReasons.length > 0 && (
                      <div style={{display: 'flex', gap: '8px', marginTop: '12px'}}>
-                       {vol.matchReasons.map((r, i) => (
+                       {(vol.matchReasons || []).map((r, i) => (
                          <span key={i} className="badge badge-low" style={{fontSize: '11px'}}>{r}</span>
                        ))}
                      </div>
@@ -164,7 +164,7 @@ export default function AssignTaskPage({ params }) {
               <button 
                 onClick={() => handleAssign(vol.id)} 
                 disabled={assigning !== null}
-                className="btn btn-primary"
+                className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
               >
                 {assigning === vol.id ? 'Deploying...' : 'Assign & Deploy'}
               </button>

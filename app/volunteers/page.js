@@ -56,7 +56,7 @@ export default function VolunteersPage() {
   };
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in bg-transparent">
       <header className="page-header">
         <div>
           <h1 className="gradient-text">Volunteer Network</h1>
@@ -67,20 +67,20 @@ export default function VolunteersPage() {
         </Link>
       </header>
 
-      <div className="animate-fade-in delay-1" style={{padding: '0', overflow: 'hidden', background: 'transparent'}}>
+      <div className="glass-panel animate-fade-in delay-1 border-none bg-transparent" style={{padding: '0', overflow: 'hidden'}}>
         {loading ? (
           <div style={{padding: '40px', textAlign: 'center', color: 'var(--text-secondary)'}}>Loading personnel...</div>
         ) : volunteers.length === 0 ? (
           <div style={{padding: '40px', textAlign: 'center', color: 'var(--text-secondary)'}}>No volunteers registered yet.</div>
         ) : (
-          <table className="w-full">
+          <table>
             <thead>
               <tr>
-                <th className="align-middle">Profile</th>
-                <th className="align-middle">Primary Skill</th>
-                <th className="align-middle">Location</th>
-                <th className="align-middle">Status</th>
-                <th className="align-middle">Actions</th>
+                <th>Profile</th>
+                <th>Primary Skill</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -89,8 +89,8 @@ export default function VolunteersPage() {
                 const taskName = vol.assignedTask?.title || (typeof vol.assignedTask === 'string' ? vol.assignedTask : null) || `Task #${vol.assignedTaskId}`;
 
                 return (
-                <tr key={vol.id} className="shadow-sm">
-                  <td className="align-middle">
+                <tr key={vol.id} className="shadow-sm border-none">
+                  <td>
                     <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
                       <div style={{width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, #10b981, #3b82f6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '14px', color: '#fff'}}>
                         {vol.name.charAt(0)}
@@ -98,7 +98,7 @@ export default function VolunteersPage() {
                       <div style={{fontWeight: '600'}}>{vol.name}</div>
                     </div>
                   </td>
-                  <td className="align-middle">
+                  <td>
                     <span className="badge badge-medium" style={{background: 'rgba(255,255,255,0.05)', color: 'var(--text-primary)', border: '1px solid var(--border-glass)'}}>{vol.skill}</span>
                     <p style={{fontSize: '12px', marginTop: '6px', color: 'var(--text-secondary)', margin: 0, paddingTop: '6px'}}>
                       Secondary Skills: {
@@ -108,7 +108,7 @@ export default function VolunteersPage() {
                       }
                     </p>
                   </td>
-                  <td className="align-middle">
+                  <td>
                     {editingId === vol.id ? (
                       <div style={{display: 'flex', flexDirection: 'column', gap: '8px', minWidth: '150px'}}>
                         <input
@@ -126,14 +126,14 @@ export default function VolunteersPage() {
                       vol.location
                     )}
                   </td>
-                  <td className="align-middle">
+                  <td>
                     {vol.isAvailable ? (
                       <span className="badge badge-low">Available</span>
                     ) : (
                       <span className="badge badge-critical">Deployed / Unavailable</span>
                     )}
                   </td>
-                  <td className="align-middle">
+                  <td>
                     <div className="flex gap-3 items-center">
                       <button 
                         className="btn btn-secondary" 

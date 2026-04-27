@@ -60,7 +60,7 @@ export default function TasksPage() {
   };
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in bg-transparent">
       <header className="page-header">
         <div>
           <h1 className="gradient-text">Task Management</h1>
@@ -71,31 +71,31 @@ export default function TasksPage() {
         </Link>
       </header>
 
-      <div className="animate-fade-in delay-1" style={{padding: '0', overflow: 'hidden', background: 'transparent'}}>
+      <div className="glass-panel animate-fade-in delay-1 border-none bg-transparent" style={{padding: '0', overflow: 'hidden'}}>
         {loading ? (
           <div style={{padding: '40px', textAlign: 'center', color: 'var(--text-secondary)'}}>Loading tasks...</div>
         ) : tasks.length === 0 ? (
           <div style={{padding: '40px', textAlign: 'center', color: 'var(--text-secondary)'}}>No tasks available. Create one to get started.</div>
         ) : (
-          <table className="w-full">
+          <table>
             <thead>
               <tr>
-                <th className="align-middle">Title & Location</th>
-                <th className="align-middle">Category</th>
-                <th className="align-middle">Priority Score</th>
-                <th className="align-middle">Status</th>
-                <th className="align-middle">Actions</th>
+                <th>Title & Location</th>
+                <th>Category</th>
+                <th>Priority Score</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {tasks.map((task) => (
-                <tr key={task.id} className="shadow-sm">
-                  <td className="align-middle">
+              {(tasks || []).map((task) => (
+                <tr key={task.id} className="shadow-sm border-none">
+                  <td>
                     <div style={{fontWeight: '600', marginBottom: '4px'}}>{task.title}</div>
                     <div style={{fontSize: '12px', color: 'var(--text-secondary)'}}>{task.location} • {task.affectedCount} affected</div>
                   </td>
-                  <td className="align-middle">{task.category}</td>
-                  <td className="align-middle">
+                  <td>{task.category}</td>
+                  <td>
                     <div>
                       <span className={
                         task.priority <= 70 ? "text-green-600" :
@@ -110,7 +110,7 @@ export default function TasksPage() {
                       </span>
                     </div>
                   </td>
-                  <td className="align-middle">
+                  <td>
                     <select
                       value={task.status}
                       onChange={(e) => updateStatus(task.id, e.target.value)}
@@ -122,7 +122,7 @@ export default function TasksPage() {
                       <option value="Completed">Completed</option>
                     </select>
                   </td>
-                  <td className="align-middle">
+                  <td>
                     <div className="flex gap-3 items-center">
                       {task.status !== 'Assigned' && (
                         <Link href={`/tasks/${task.id}/assign`} className="btn btn-primary" style={{padding: '6px 12px', fontSize: '13px'}}>

@@ -35,7 +35,7 @@ async function fetchStates(country) {
     });
     if (!res.ok) throw new Error();
     const data = await res.json();
-    const states = data?.data?.states?.map(s => s.name) || [];
+    const states = (data?.data?.states || []).map(s => s.name);
     apiCache.states[country] = states;
     return states;
   } catch (e) {
@@ -154,7 +154,7 @@ export default function NewTaskPage() {
       <form className="glass-panel bg-white dark:bg-gray-900" onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
         
         <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-          <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">Task Title</label>
+          <label className="text-gray-700 dark:text-gray-300 text-sm mb-1">Task Title</label>
           <input 
             type="text" 
             required 
@@ -166,7 +166,7 @@ export default function NewTaskPage() {
         </div>
 
         <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-          <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">Description</label>
+          <label className="text-gray-700 dark:text-gray-300 text-sm mb-1">Description</label>
           <textarea 
             required 
             rows="3"
@@ -178,7 +178,7 @@ export default function NewTaskPage() {
 
         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px'}}>
           <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">
+            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1">
               Country {loadingLocation && <span style={{fontSize:'12px', color:'var(--accent-blue)'}}>(Loading...)</span>}
               {locationError && <span style={{fontSize:'12px', color:'var(--accent-red)'}}>(Failed to load data)</span>}
             </label>
@@ -187,45 +187,45 @@ export default function NewTaskPage() {
               onChange={e => setSelectedCountry(e.target.value)}
               className="w-full px-3 py-2 rounded-lg bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none border-none transition"
             >
-              <option value="" disabled className="text-gray-400">Select Country</option>
-              {countriesList.map(country => (
+              <option value="" disabled className="text-gray-400">Select option</option>
+              {(countriesList || []).map(country => (
                 <option key={country} value={country}>{country}</option>
               ))}
             </select>
           </div>
 
           <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">State</label>
+            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1">State</label>
             <select 
               value={selectedState}
               onChange={e => setSelectedState(e.target.value)}
               disabled={!selectedCountry}
               className="w-full px-3 py-2 rounded-lg bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none border-none transition disabled:opacity-50"
             >
-              <option value="" disabled className="text-gray-400">Select State</option>
-              {statesList.map(state => (
+              <option value="" disabled className="text-gray-400">Select option</option>
+              {(statesList || []).map(state => (
                 <option key={state} value={state}>{state}</option>
               ))}
             </select>
           </div>
 
           <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">City</label>
+            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1">City</label>
             <select 
               value={selectedCity}
               onChange={e => setSelectedCity(e.target.value)}
               disabled={!selectedState}
               className="w-full px-3 py-2 rounded-lg bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none border-none transition disabled:opacity-50"
             >
-              <option value="" disabled className="text-gray-400">Select City</option>
-              {citiesList.map(city => (
+              <option value="" disabled className="text-gray-400">Select option</option>
+              {(citiesList || []).map(city => (
                 <option key={city} value={city}>{city}</option>
               ))}
             </select>
           </div>
 
           <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">Category</label>
+            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1">Category</label>
             <select 
               value={formData.category}
               onChange={e => setFormData({...formData, category: e.target.value})}
@@ -242,7 +242,7 @@ export default function NewTaskPage() {
           {/* Urgency Level field removed */}
 
           <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">Number of People Affected</label>
+            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1">Number of People Affected</label>
             <input 
               type="number" 
               required 
@@ -254,7 +254,7 @@ export default function NewTaskPage() {
           </div>
 
           <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">Status</label>
+            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1">Status</label>
             <select 
               value={formData.status}
               onChange={e => setFormData({...formData, status: e.target.value})}

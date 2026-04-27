@@ -35,7 +35,7 @@ async function fetchStates(country) {
     });
     if (!res.ok) throw new Error();
     const data = await res.json();
-    const states = data?.data?.states?.map(s => s.name) || [];
+    const states = (data?.data?.states || []).map(s => s.name);
     apiCache.states[country] = states;
     return states;
   } catch (e) {
@@ -151,41 +151,40 @@ export default function NewVolunteerPage() {
         </div>
       </header>
 
-      <form className="glass-panel bg-white dark:bg-gray-900" onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
+      <form className="glass-panel" onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
         
         <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-          <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">Full Name</label>
+          <label style={{fontWeight: '500', fontSize: '14px', color: 'var(--text-secondary)'}}>Full Name</label>
           <input 
             type="text" 
             required 
             value={formData.name}
             onChange={e => setFormData({...formData, name: e.target.value})}
-            className="w-full px-3 py-2 rounded-lg bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none border-none transition"
+            className="primary-skill-select w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1f2937] text-black dark:text-white border-none outline-none focus:outline-none transition"
             placeholder="e.g. Dr. Sarah Chen"
           />
         </div>
 
         <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-          <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">Primary Skill / Category</label>
+          <label style={{fontWeight: '500', fontSize: '14px', color: 'var(--text-secondary)'}}>Primary Skill / Category</label>
           <select 
             value={formData.skill}
             onChange={e => setFormData({...formData, skill: e.target.value})}
-            className="primary-skill-select w-full px-3 py-2 rounded-lg bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none border-none transition"
+            className="primary-skill-select w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1f2937] text-black dark:text-white border-none outline-none focus:outline-none transition"
           >
             <option>Medical</option>
             <option>Food</option>
+            <option>Shelter</option>
             <option>Logistics</option>
             <option>Education</option>
-            <option>Shelter</option>
-            <option>General</option>
           </select>
         </div>
 
         <div style={{display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative'}}>
-          <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">Secondary Skills</label>
+          <label style={{fontWeight: '500', fontSize: '14px', color: 'var(--text-secondary)'}}>Secondary Skills</label>
           <div 
             onClick={() => setShowSecondaryDropdown(!showSecondaryDropdown)}
-            className="w-full px-3 py-2 rounded-lg bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none border-none transition"
+            className="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1f2937] text-black dark:text-white border-none outline-none focus:outline-none transition"
             style={{cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
           >
             <span style={{opacity: formData.secondarySkills.length > 0 ? 1 : 0.5}}>
@@ -195,7 +194,7 @@ export default function NewVolunteerPage() {
           </div>
           {showSecondaryDropdown && (
             <div style={{position: 'absolute', top: '100%', left: 0, right: 0, marginTop: '8px', background: 'var(--bg-secondary)', border: '1px solid var(--border-glass)', borderRadius: '8px', padding: '8px', zIndex: 10, display: 'flex', flexDirection: 'column', gap: '4px', boxShadow: '0 4px 20px rgba(0,0,0,0.5)'}}>
-              {['Medical', 'Food', 'Logistics', 'Education', 'Shelter', 'General'].map(skill => (
+              {['Medical', 'Food', 'Shelter', 'Logistics', 'Education'].map(skill => (
                 <label key={skill} style={{display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 12px', cursor: 'pointer', borderRadius: '6px', background: 'rgba(255,255,255,0.02)'}}>
                   <input 
                     type="checkbox" 
@@ -218,47 +217,47 @@ export default function NewVolunteerPage() {
 
         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px'}}>
           <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">
+            <label style={{fontWeight: '500', fontSize: '14px', color: 'var(--text-secondary)'}}>
               Country {loadingLocation && <span style={{fontSize:'12px', color:'var(--accent-blue)'}}>(Loading...)</span>}
               {locationError && <span style={{fontSize:'12px', color:'var(--accent-red)'}}>(Failed to load data)</span>}
             </label>
             <select 
               value={selectedCountry}
               onChange={e => setSelectedCountry(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none border-none transition"
+              className="primary-skill-select w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1f2937] text-black dark:text-white border-none outline-none focus:outline-none transition"
             >
-              <option value="" disabled className="text-gray-400">Select Country</option>
-              {countriesList.map(country => (
+              <option value="">Select Country</option>
+              {(countriesList || []).map(country => (
                 <option key={country} value={country}>{country}</option>
               ))}
             </select>
           </div>
 
           <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">State</label>
+            <label style={{fontWeight: '500', fontSize: '14px', color: 'var(--text-secondary)'}}>State</label>
             <select 
               value={selectedState}
               onChange={e => setSelectedState(e.target.value)}
               disabled={!selectedCountry}
-              className="w-full px-3 py-2 rounded-lg bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none border-none transition disabled:opacity-50"
+              className="primary-skill-select w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1f2937] text-black dark:text-white border-none outline-none focus:outline-none transition"
             >
-              <option value="" disabled className="text-gray-400">Select State</option>
-              {statesList.map(state => (
+              <option value="">Select State</option>
+              {(statesList || []).map(state => (
                 <option key={state} value={state}>{state}</option>
               ))}
             </select>
           </div>
 
           <div style={{display: 'flex', flexDirection: 'column', gap: '8px', gridColumn: '1 / -1'}}>
-            <label className="text-gray-700 dark:text-gray-300 text-sm mb-1 font-medium">City</label>
+            <label style={{fontWeight: '500', fontSize: '14px', color: 'var(--text-secondary)'}}>City</label>
             <select 
               value={selectedCity}
               onChange={e => setSelectedCity(e.target.value)}
               disabled={!selectedState}
-              className="w-full px-3 py-2 rounded-lg bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none border-none transition disabled:opacity-50"
+              className="primary-skill-select w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-[#1f2937] text-black dark:text-white border-none outline-none focus:outline-none transition"
             >
-              <option value="" disabled className="text-gray-400">Select City</option>
-              {citiesList.map(city => (
+              <option value="">Select City</option>
+              {(citiesList || []).map(city => (
                 <option key={city} value={city}>{city}</option>
               ))}
             </select>
@@ -273,7 +272,7 @@ export default function NewVolunteerPage() {
             onChange={e => setFormData({...formData, isAvailable: e.target.checked})}
             style={{width: '18px', height: '18px', accentColor: 'var(--accent-blue)'}}
           />
-          <label htmlFor="available" className="text-gray-700 dark:text-gray-300 font-medium cursor-pointer ml-1">Currently Available for Deployment</label>
+          <label htmlFor="available" style={{fontWeight: '500', fontSize: '15px', cursor: 'pointer'}}>Currently Available for Deployment</label>
         </div>
 
         <div style={{display: 'flex', justifyContent: 'flex-end', gap: '16px', marginTop: '16px'}}>

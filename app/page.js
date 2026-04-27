@@ -38,7 +38,7 @@ export default function Dashboard() {
     </div>
   );
 
-  const totalTasks = Object.values(stats.tasksByUrgency).reduce((a, b) => a + b, 0) || 1;
+  const totalTasks = Object.values(stats?.tasksByUrgency || {}).reduce((a, b) => a + b, 0) || 1;
 
   return (
     <div className="animate-fade-in">
@@ -80,8 +80,8 @@ export default function Dashboard() {
         <div className="glass-panel" style={{maxHeight: '400px', overflowY: 'auto'}}>
           <h3 style={{marginBottom: '24px', fontSize: '18px'}}>Active Tasks Overview</h3>
           <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
-            {tasks.map(task => {
-              const assignedVols = volunteers.filter(v => v.assignedTaskId === task.id);
+            {(tasks || []).map(task => {
+              const assignedVols = (volunteers || []).filter(v => v.assignedTaskId === task.id);
               return (
                 <div key={task.id} style={{padding: '12px', background: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)'}}>
                   <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px'}}>
@@ -96,7 +96,7 @@ export default function Dashboard() {
                     </div>
                     {assignedVols.length > 0 ? (
                       <div style={{display: 'flex', flexWrap: 'wrap', gap: '4px'}}>
-                        {assignedVols.map(v => (
+                        {(assignedVols || []).map(v => (
                           <span key={v.id} style={{background: 'rgba(56, 189, 248, 0.1)', color: 'var(--accent-blue)', padding: '2px 8px', borderRadius: '12px', fontSize: '11px'}}>
                             {v.name}
                           </span>
@@ -109,7 +109,7 @@ export default function Dashboard() {
                 </div>
               );
             })}
-            {tasks.length === 0 && (
+            {(tasks || []).length === 0 && (
               <div style={{color: 'var(--text-secondary)', fontStyle: 'italic', textAlign: 'center', padding: '20px'}}>No tasks available</div>
             )}
           </div>
