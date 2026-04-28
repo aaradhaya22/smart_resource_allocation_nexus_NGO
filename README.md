@@ -131,7 +131,7 @@ Priority = Category Weight + Affected People Score
 - Next.js API Routes
 
 ### Database
-- JSON-based local database (for prototyping)
+- JSON-based local database (for fast prototyping)
 
 ---
 
@@ -171,7 +171,7 @@ npm run dev
 - Machine Learning-based prioritization
 - Notification system
 - Advanced analytics dashboard
-
+- Better support in chatbot 
 ---
 
 ## 🤝 Contribution
