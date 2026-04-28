@@ -112,7 +112,7 @@ Priority = Category Weight + Affected People Score
 ---
 
 ### ➕ Add Task
-![Add Task](./screenshots/add-task.png)
+![Add Task](./screenshots/add-Task.png)
 
 ---
 
