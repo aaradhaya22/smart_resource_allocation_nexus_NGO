@@ -19,7 +19,7 @@
       "category": "Education",
       "affectedCount": 100,
       "priority": 110,
-      "status": "Pending",
+      "status": "In Progress",
       "createdAt": "2026-04-25T15:20:13.673Z"
     },
     {
@@ -41,7 +41,7 @@
       "category": "Logistics",
       "affectedCount": 70,
       "priority": 90,
-      "status": "Pending",
+      "status": "Completed",
       "createdAt": "2026-04-25T15:31:34.030Z"
     },
     {
@@ -63,7 +63,7 @@
       "category": "Medical",
       "affectedCount": 500,
       "priority": 150,
-      "status": "Pending",
+      "status": "In Progress",
       "createdAt": "2026-04-26T09:57:02.014Z"
     }
   ],
